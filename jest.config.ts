@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^qanapi-api-v1$': '<rootDir>/src/index.ts',
-    '^qanapi-api-v1/(.*)$': '<rootDir>/src/$1',
+    '^qanapi-api-v1-sdk$': '<rootDir>/src/index.ts',
+    '^qanapi-api-v1-sdk/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

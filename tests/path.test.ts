@@ -1,4 +1,4 @@
-import { createPathTagFunction, encodeURIPath } from 'qanapi-api-v1/internal/utils/path';
+import { createPathTagFunction, encodeURIPath } from 'qanapi-api-v1-sdk/internal/utils/path';
 import { inspect } from 'node:util';
 
 describe('path template tag function', () => {

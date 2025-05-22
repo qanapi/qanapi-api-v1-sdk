@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'qanapi-api-v1/internal/uploads';
-import { toFile } from 'qanapi-api-v1/core/uploads';
+import { multipartFormRequestOptions, createForm } from 'qanapi-api-v1-sdk/internal/uploads';
+import { toFile } from 'qanapi-api-v1-sdk/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { QanapiAPIV1 } from 'qanapi-api-v1';
+import { QanapiAPIV1 } from 'qanapi-api-v1-sdk';
 
 const { stringifyQuery } = QanapiAPIV1.prototype as any;
 

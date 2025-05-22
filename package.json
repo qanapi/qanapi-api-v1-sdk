@@ -1,6 +1,6 @@
 {
-  "name": "qanapi-api-v1",
-  "version": "0.1.0-alpha.1",
+  "name": "qanapi-api-v1-sdk",
+  "version": "0.1.0-alpha.2",
   "description": "The official TypeScript library for the Qanapi API V1 API",
   "author": "Qanapi API V1 <>",
   "types": "dist/index.d.ts",
@@ -50,8 +50,8 @@
     "synckit": "0.8.8"
   },
   "imports": {
-    "qanapi-api-v1": ".",
-    "qanapi-api-v1/*": "./src/*"
+    "qanapi-api-v1-sdk": ".",
+    "qanapi-api-v1-sdk/*": "./src/*"
   },
   "exports": {
     ".": {
