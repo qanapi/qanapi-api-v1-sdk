@@ -24,7 +24,6 @@ import QanapiAPIV1 from 'qanapi-api-v1-sdk';
 
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
-  apiToken: 'My API Token',
   qanapiAuthorization: process.env['QANAPI_API_V1_API_KEY'], // This is the default and can be omitted
 });
 
@@ -52,7 +51,6 @@ import QanapiAPIV1 from 'qanapi-api-v1-sdk';
 
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
-  apiToken: 'My API Token',
   qanapiAuthorization: process.env['QANAPI_API_V1_API_KEY'], // This is the default and can be omitted
 });
 
@@ -131,7 +129,6 @@ You can use the `maxRetries` option to configure or disable this:
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
-  apiToken: 'My API Token',
   maxRetries: 0, // default is 2
 });
 
@@ -150,7 +147,6 @@ Requests time out after 1 minute by default. You can configure this with a `time
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
-  apiToken: 'My API Token',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
