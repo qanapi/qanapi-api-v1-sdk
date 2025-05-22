@@ -1,0 +1,1 @@
+# qanapi-api-v1-typescript
