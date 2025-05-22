@@ -14,10 +14,11 @@ export class Proxy extends APIResource {
    * ```ts
    * const response = await client.proxy.forward('api_token', {
    *   body: {
-   *     userId: 'bar',
-   *     id: 'bar',
-   *     title: 'bar',
-   *     body: 'bar',
+   *     userId: 1,
+   *     id: 1,
+   *     title:
+   *       'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+   *     body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
    *   },
    * });
    * ```
@@ -64,7 +65,7 @@ export interface ProxyForwardParams {
    * Body param: JSON payload to be encrypted or decrypted. Fields must match those
    * listed in `X-Qanapi-Fields`.
    */
-  body: Record<string, unknown>;
+  body: unknown;
 
   /**
    * Header param: Optional classification label for auditing or filtering
