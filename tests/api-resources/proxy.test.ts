@@ -4,6 +4,7 @@ import QanapiAPIV1 from 'qanapi-api-v1';
 
 const client = new QanapiAPIV1({
   qanapiAuthorization: 'My Qanapi Authorization',
+  projectDomain: 'My-Project-Domain',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
