@@ -28,7 +28,7 @@ const client = new QanapiAPIV1({
 });
 
 async function main() {
-  const response = await client.proxy.execute('REPLACE_ME', {
+  const response = await client.proxy.process('REPLACE_ME', {
     body: {
       userId: 1,
       id: 1,
@@ -55,7 +55,7 @@ const client = new QanapiAPIV1({
 });
 
 async function main() {
-  const params: QanapiAPIV1.ProxyExecuteParams = {
+  const params: QanapiAPIV1.ProxyProcessParams = {
     body: {
       userId: 1,
       id: 1,
@@ -63,7 +63,7 @@ async function main() {
       body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
     },
   };
-  const response: QanapiAPIV1.ProxyExecuteResponse = await client.proxy.execute('REPLACE_ME', params);
+  const response: QanapiAPIV1.ProxyProcessResponse = await client.proxy.process('REPLACE_ME', params);
 }
 
 main();
@@ -81,7 +81,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const response = await client.proxy
-    .execute('REPLACE_ME', {
+    .process('REPLACE_ME', {
       body: {
         userId: 1,
         id: 1,
@@ -133,7 +133,7 @@ const client = new QanapiAPIV1({
 });
 
 // Or, configure per-request:
-await client.proxy.execute('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
+await client.proxy.process('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
   maxRetries: 5,
 });
 ```
@@ -151,7 +151,7 @@ const client = new QanapiAPIV1({
 });
 
 // Override per-request:
-await client.proxy.execute('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
+await client.proxy.process('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
   timeout: 5 * 1000,
 });
 ```
@@ -175,7 +175,7 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new QanapiAPIV1();
 
 const response = await client.proxy
-  .execute('REPLACE_ME', {
+  .process('REPLACE_ME', {
     body: {
       userId: 1,
       id: 1,
@@ -188,7 +188,7 @@ console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.proxy
-  .execute('REPLACE_ME', {
+  .process('REPLACE_ME', {
     body: {
       userId: 1,
       id: 1,
