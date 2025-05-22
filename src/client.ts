@@ -123,7 +123,7 @@ export class QanapiAPIV1 {
    * API Client for interfacing with the Qanapi API V1 API.
    *
    * @param {string} opts.qanapiAuthorization
-   * @param {string | undefined} [opts.projectDomain=process.env['QANAPI_API_V1_PROJECT_DOMAIN'] ?? example.qanapi.com]
+   * @param {string | undefined} [opts.projectDomain=process.env['QANAPI_API_V1_PROJECT_DOMAIN'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['QANAPI_API_V1_BASE_URL'] ?? https://{project_domain}] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -135,12 +135,17 @@ export class QanapiAPIV1 {
   constructor({
     baseURL = readEnv('QANAPI_API_V1_BASE_URL'),
     qanapiAuthorization,
-    projectDomain = readEnv('QANAPI_API_V1_PROJECT_DOMAIN') ?? 'example.qanapi.com',
+    projectDomain = readEnv('QANAPI_API_V1_PROJECT_DOMAIN'),
     ...opts
   }: ClientOptions) {
     if (qanapiAuthorization === undefined) {
       throw new Errors.QanapiAPIV1Error(
         "Missing required client option qanapiAuthorization; you need to instantiate the QanapiAPIV1 client with an qanapiAuthorization option, like new QanapiAPIV1({ qanapiAuthorization: 'My Qanapi Authorization' }).",
+      );
+    }
+    if (projectDomain === undefined) {
+      throw new Errors.QanapiAPIV1Error(
+        "The QANAPI_API_V1_PROJECT_DOMAIN environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an projectDomain option, like new QanapiAPIV1({ projectDomain: 'My-Project-Domain' }).",
       );
     }
 

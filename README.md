@@ -26,6 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 import QanapiAPIV1 from 'qanapi-api-v1';
 
 const client = new QanapiAPIV1({
+  projectDomain: 'My-Project-Domain',
   qanapiAuthorization: 'My Qanapi Authorization',
 });
 
@@ -52,6 +53,7 @@ This library includes TypeScript definitions for all request params and response
 import QanapiAPIV1 from 'qanapi-api-v1';
 
 const client = new QanapiAPIV1({
+  projectDomain: 'My-Project-Domain',
   qanapiAuthorization: 'My Qanapi Authorization',
 });
 
@@ -129,6 +131,7 @@ You can use the `maxRetries` option to configure or disable this:
 ```js
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
+  projectDomain: 'My-Project-Domain',
   maxRetries: 0, // default is 2
 });
 
@@ -146,6 +149,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 ```ts
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
+  projectDomain: 'My-Project-Domain',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
