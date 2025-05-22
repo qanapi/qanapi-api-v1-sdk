@@ -23,6 +23,7 @@ describe('instantiate client', () => {
     const client = new QanapiAPIV1({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
+      projectDomain: 'My-Project-Domain',
     });
 
     test('they are used in the request', () => {
@@ -86,14 +87,18 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new QanapiAPIV1({ logger: logger, logLevel: 'debug' });
+      const client = new QanapiAPIV1({
+        logger: logger,
+        logLevel: 'debug',
+        projectDomain: 'My-Project-Domain',
+      });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).toHaveBeenCalled();
     });
 
     test('default logLevel is warn', async () => {
-      const client = new QanapiAPIV1({});
+      const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
       expect(client.logLevel).toBe('warn');
     });
 
@@ -106,7 +111,11 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new QanapiAPIV1({ logger: logger, logLevel: 'info' });
+      const client = new QanapiAPIV1({
+        logger: logger,
+        logLevel: 'info',
+        projectDomain: 'My-Project-Domain',
+      });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
@@ -122,7 +131,7 @@ describe('instantiate client', () => {
       };
 
       process.env['QANAPI_API_V1_LOG'] = 'debug';
-      const client = new QanapiAPIV1({ logger: logger });
+      const client = new QanapiAPIV1({ logger: logger, projectDomain: 'My-Project-Domain' });
       expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
@@ -139,7 +148,7 @@ describe('instantiate client', () => {
       };
 
       process.env['QANAPI_API_V1_LOG'] = 'not a log level';
-      const client = new QanapiAPIV1({ logger: logger });
+      const client = new QanapiAPIV1({ logger: logger, projectDomain: 'My-Project-Domain' });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
         'process.env[\'QANAPI_API_V1_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
@@ -156,7 +165,7 @@ describe('instantiate client', () => {
       };
 
       process.env['QANAPI_API_V1_LOG'] = 'debug';
-      const client = new QanapiAPIV1({ logger: logger, logLevel: 'off' });
+      const client = new QanapiAPIV1({ logger: logger, logLevel: 'off', projectDomain: 'My-Project-Domain' });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
@@ -172,7 +181,11 @@ describe('instantiate client', () => {
       };
 
       process.env['QANAPI_API_V1_LOG'] = 'not a log level';
-      const client = new QanapiAPIV1({ logger: logger, logLevel: 'debug' });
+      const client = new QanapiAPIV1({
+        logger: logger,
+        logLevel: 'debug',
+        projectDomain: 'My-Project-Domain',
+      });
       expect(client.logLevel).toBe('debug');
       expect(warnMock).not.toHaveBeenCalled();
     });
@@ -183,6 +196,7 @@ describe('instantiate client', () => {
       const client = new QanapiAPIV1({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
+        projectDomain: 'My-Project-Domain',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
@@ -191,12 +205,17 @@ describe('instantiate client', () => {
       const client = new QanapiAPIV1({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
+        projectDomain: 'My-Project-Domain',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
 
     test('overriding with `undefined`', () => {
-      const client = new QanapiAPIV1({ baseURL: 'http://localhost:5000/', defaultQuery: { hello: 'world' } });
+      const client = new QanapiAPIV1({
+        baseURL: 'http://localhost:5000/',
+        defaultQuery: { hello: 'world' },
+        projectDomain: 'My-Project-Domain',
+      });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
   });
@@ -204,6 +223,7 @@ describe('instantiate client', () => {
   test('custom fetch', async () => {
     const client = new QanapiAPIV1({
       baseURL: 'http://localhost:5000/',
+      projectDomain: 'My-Project-Domain',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -219,12 +239,17 @@ describe('instantiate client', () => {
 
   test('explicit global fetch', async () => {
     // make sure the global fetch type is assignable to our Fetch type
-    const client = new QanapiAPIV1({ baseURL: 'http://localhost:5000/', fetch: defaultFetch });
+    const client = new QanapiAPIV1({
+      baseURL: 'http://localhost:5000/',
+      projectDomain: 'My-Project-Domain',
+      fetch: defaultFetch,
+    });
   });
 
   test('custom signal', async () => {
     const client = new QanapiAPIV1({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+      projectDomain: 'My-Project-Domain',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -254,7 +279,11 @@ describe('instantiate client', () => {
       return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new QanapiAPIV1({ baseURL: 'http://localhost:5000/', fetch: testFetch });
+    const client = new QanapiAPIV1({
+      baseURL: 'http://localhost:5000/',
+      projectDomain: 'My-Project-Domain',
+      fetch: testFetch,
+    });
 
     await client.patch('/foo');
     expect(capturedRequest?.method).toEqual('PATCH');
@@ -262,12 +291,18 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new QanapiAPIV1({ baseURL: 'http://localhost:5000/custom/path/' });
+      const client = new QanapiAPIV1({
+        baseURL: 'http://localhost:5000/custom/path/',
+        projectDomain: 'My-Project-Domain',
+      });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     test('no trailing slash', () => {
-      const client = new QanapiAPIV1({ baseURL: 'http://localhost:5000/custom/path' });
+      const client = new QanapiAPIV1({
+        baseURL: 'http://localhost:5000/custom/path',
+        projectDomain: 'My-Project-Domain',
+      });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
@@ -276,41 +311,45 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new QanapiAPIV1({ baseURL: 'https://example.com' });
+      const client = new QanapiAPIV1({ baseURL: 'https://example.com', projectDomain: 'My-Project-Domain' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['QANAPI_API_V1_BASE_URL'] = 'https://example.com/from_env';
-      const client = new QanapiAPIV1({});
+      const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['QANAPI_API_V1_BASE_URL'] = ''; // empty
-      const client = new QanapiAPIV1({});
+      const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
       expect(client.baseURL).toEqual('https://My-Project-Domain');
     });
 
     test('blank env variable', () => {
       process.env['QANAPI_API_V1_BASE_URL'] = '  '; // blank
-      const client = new QanapiAPIV1({});
+      const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
       expect(client.baseURL).toEqual('https://My-Project-Domain');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new QanapiAPIV1({ maxRetries: 4 });
+    const client = new QanapiAPIV1({ maxRetries: 4, projectDomain: 'My-Project-Domain' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new QanapiAPIV1({});
+    const client2 = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   describe('withOptions', () => {
     test('creates a new client with overridden options', () => {
-      const client = new QanapiAPIV1({ baseURL: 'http://localhost:5000/', maxRetries: 3 });
+      const client = new QanapiAPIV1({
+        baseURL: 'http://localhost:5000/',
+        maxRetries: 3,
+        projectDomain: 'My-Project-Domain',
+      });
 
       const newClient = client.withOptions({
         maxRetries: 5,
@@ -335,6 +374,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
+        projectDomain: 'My-Project-Domain',
       });
 
       const newClient = client.withOptions({
@@ -349,7 +389,11 @@ describe('instantiate client', () => {
     });
 
     test('respects runtime property changes when creating new client', () => {
-      const client = new QanapiAPIV1({ baseURL: 'http://localhost:5000/', timeout: 1000 });
+      const client = new QanapiAPIV1({
+        baseURL: 'http://localhost:5000/',
+        timeout: 1000,
+        projectDomain: 'My-Project-Domain',
+      });
 
       // Modify the client properties directly after creation
       client.baseURL = 'http://localhost:6000/';
@@ -374,10 +418,24 @@ describe('instantiate client', () => {
       expect(newClient.buildURL('/bar', null)).toEqual('http://localhost:6000/bar');
     });
   });
+
+  test('with environment variable arguments', () => {
+    // set options via env var
+    process.env['QANAPI_API_V1_PROJECT_DOMAIN'] = 'My-Project-Domain';
+    const client = new QanapiAPIV1();
+    expect(client.projectDomain).toBe('My-Project-Domain');
+  });
+
+  test('with overridden environment variable arguments', () => {
+    // set options via env var
+    process.env['QANAPI_API_V1_PROJECT_DOMAIN'] = 'another My-Project-Domain';
+    const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
+    expect(client.projectDomain).toBe('My-Project-Domain');
+  });
 });
 
 describe('request building', () => {
-  const client = new QanapiAPIV1({});
+  const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
 
   describe('custom headers', () => {
     test('handles undefined', () => {
@@ -396,7 +454,7 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const client = new QanapiAPIV1({});
+  const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain' });
 
   class Serializable {
     toJSON() {
@@ -481,7 +539,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new QanapiAPIV1({ timeout: 10, fetch: testFetch });
+    const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -511,7 +569,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new QanapiAPIV1({ fetch: testFetch, maxRetries: 4 });
+    const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain', fetch: testFetch, maxRetries: 4 });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
 
@@ -535,7 +593,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new QanapiAPIV1({ fetch: testFetch, maxRetries: 4 });
+    const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -565,6 +623,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
     const client = new QanapiAPIV1({
+      projectDomain: 'My-Project-Domain',
       fetch: testFetch,
       maxRetries: 4,
       defaultHeaders: { 'X-Stainless-Retry-Count': null },
@@ -596,7 +655,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new QanapiAPIV1({ fetch: testFetch, maxRetries: 4 });
+    const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -626,7 +685,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new QanapiAPIV1({ fetch: testFetch });
+    const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -656,7 +715,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new QanapiAPIV1({ fetch: testFetch });
+    const client = new QanapiAPIV1({ projectDomain: 'My-Project-Domain', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
