@@ -26,7 +26,10 @@ import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
-  qanapiAuthorization: string;
+  /**
+   * Defaults to process.env['QANAPI_API_V1_API_KEY'].
+   */
+  qanapiAuthorization?: string | undefined;
 
   /**
    * Defaults to process.env['QANAPI_API_V1_PROJECT_DOMAIN'].
@@ -122,7 +125,7 @@ export class QanapiAPIV1 {
   /**
    * API Client for interfacing with the Qanapi API V1 API.
    *
-   * @param {string} opts.qanapiAuthorization
+   * @param {string | undefined} [opts.qanapiAuthorization=process.env['QANAPI_API_V1_API_KEY'] ?? undefined]
    * @param {string | undefined} [opts.projectDomain=process.env['QANAPI_API_V1_PROJECT_DOMAIN'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['QANAPI_API_V1_BASE_URL'] ?? https://{project_domain}] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -134,18 +137,18 @@ export class QanapiAPIV1 {
    */
   constructor({
     baseURL = readEnv('QANAPI_API_V1_BASE_URL'),
-    qanapiAuthorization,
+    qanapiAuthorization = readEnv('QANAPI_API_V1_API_KEY'),
     projectDomain = readEnv('QANAPI_API_V1_PROJECT_DOMAIN'),
     ...opts
-  }: ClientOptions) {
+  }: ClientOptions = {}) {
     if (qanapiAuthorization === undefined) {
       throw new Errors.QanapiAPIV1Error(
-        "Missing required client option qanapiAuthorization; you need to instantiate the QanapiAPIV1 client with an qanapiAuthorization option, like new QanapiAPIV1({ qanapiAuthorization: 'My Qanapi Authorization' }).",
+        "The QANAPI_API_V1_API_KEY environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an qanapiAuthorization option, like new QanapiAPIV1({ qanapiAuthorization: 'My Qanapi Authorization' }).",
       );
     }
     if (projectDomain === undefined) {
       throw new Errors.QanapiAPIV1Error(
-        "The QANAPI_API_V1_PROJECT_DOMAIN environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an projectDomain option, like new QanapiAPIV1({ projectDomain: 'My-Project-Domain' }).",
+        "The QANAPI_API_V1_PROJECT_DOMAIN environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an projectDomain option, like new QanapiAPIV1({ projectDomain: 'My Project Domain' }).",
       );
     }
 
@@ -153,7 +156,7 @@ export class QanapiAPIV1 {
       qanapiAuthorization,
       projectDomain,
       ...opts,
-      baseURL: baseURL || `https://${projectDomain}`,
+      baseURL: baseURL || `https://{project_domain}`,
     };
 
     this.baseURL = options.baseURL!;
