@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'qanapi-api-v1/core/api-promise';
+import { APIPromise } from 'qanapi-api-v1-sdk/core/api-promise';
 
 import util from 'node:util';
-import QanapiAPIV1 from 'qanapi-api-v1';
-import { APIUserAbortError } from 'qanapi-api-v1';
+import QanapiAPIV1 from 'qanapi-api-v1-sdk';
+import { APIUserAbortError } from 'qanapi-api-v1-sdk';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {

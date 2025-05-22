@@ -1,5 +1,5 @@
 import { inspect } from 'node:util';
-import { buildHeaders, type HeadersLike, type NullableHeaders } from 'qanapi-api-v1/internal/headers';
+import { buildHeaders, type HeadersLike, type NullableHeaders } from 'qanapi-api-v1-sdk/internal/headers';
 
 function inspectNullableHeaders(headers: NullableHeaders) {
   return `NullableHeaders {${[
