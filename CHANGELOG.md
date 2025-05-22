@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-05-22)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/qanapi/qanapi-api-v1-sdk/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** update via SDK Studio ([54a5bf2](https://github.com/qanapi/qanapi-api-v1-sdk/commit/54a5bf20ccefec5b5c59f53f4f106e047c445147))
+* **api:** update via SDK Studio ([08027b5](https://github.com/qanapi/qanapi-api-v1-sdk/commit/08027b553df6c8aef27a7e42f549bd5479f8e086))
+
 ## 0.1.0-alpha.3 (2025-05-22)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/qanapi/qanapi-api-v1-sdk/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
