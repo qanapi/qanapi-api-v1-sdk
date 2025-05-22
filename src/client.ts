@@ -198,6 +198,10 @@ export class QanapiAPIV1 {
     return;
   }
 
+  protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
+    return buildHeaders([{ 'X-Qanapi-Authorization': this.qanapiAuthorization }]);
+  }
+
   /**
    * Basic re-implementation of `qs.stringify` for primitive types.
    */
@@ -629,6 +633,7 @@ export class QanapiAPIV1 {
         ...getPlatformHeaders(),
         'X-Qanapi-Authorization': this.qanapiAuthorization,
       },
+      this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,

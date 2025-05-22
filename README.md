@@ -25,7 +25,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import QanapiAPIV1 from 'qanapi-api-v1';
 
-const client = new QanapiAPIV1();
+const client = new QanapiAPIV1({
+  qanapiAuthorization: 'My Qanapi Authorization',
+});
 
 async function main() {
   const response = await client.proxy.forward('REPLACE_ME', {
@@ -49,7 +51,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import QanapiAPIV1 from 'qanapi-api-v1';
 
-const client = new QanapiAPIV1();
+const client = new QanapiAPIV1({
+  qanapiAuthorization: 'My Qanapi Authorization',
+});
 
 async function main() {
   const params: QanapiAPIV1.ProxyForwardParams = {
@@ -125,7 +129,6 @@ You can use the `maxRetries` option to configure or disable this:
 ```js
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
-  qanapiAuthorization: 'My Qanapi Authorization',
   maxRetries: 0, // default is 2
 });
 
@@ -143,7 +146,6 @@ Requests time out after 1 minute by default. You can configure this with a `time
 ```ts
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
-  qanapiAuthorization: 'My Qanapi Authorization',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
