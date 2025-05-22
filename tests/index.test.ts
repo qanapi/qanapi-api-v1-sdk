@@ -24,7 +24,7 @@ describe('instantiate client', () => {
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
     });
 
     test('they are used in the request', () => {
@@ -92,7 +92,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'debug',
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
 
       await forceAPIResponseForClient(client);
@@ -102,7 +102,7 @@ describe('instantiate client', () => {
     test('default logLevel is warn', async () => {
       const client = new QanapiAPIV1({
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.logLevel).toBe('warn');
     });
@@ -120,7 +120,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'info',
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
 
       await forceAPIResponseForClient(client);
@@ -140,7 +140,7 @@ describe('instantiate client', () => {
       const client = new QanapiAPIV1({
         logger: logger,
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.logLevel).toBe('debug');
 
@@ -161,7 +161,7 @@ describe('instantiate client', () => {
       const client = new QanapiAPIV1({
         logger: logger,
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
@@ -183,7 +183,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'off',
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
 
       await forceAPIResponseForClient(client);
@@ -204,7 +204,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'debug',
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.logLevel).toBe('debug');
       expect(warnMock).not.toHaveBeenCalled();
@@ -217,7 +217,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
@@ -227,7 +227,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
@@ -237,7 +237,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
@@ -247,7 +247,7 @@ describe('instantiate client', () => {
     const client = new QanapiAPIV1({
       baseURL: 'http://localhost:5000/',
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -266,7 +266,7 @@ describe('instantiate client', () => {
     const client = new QanapiAPIV1({
       baseURL: 'http://localhost:5000/',
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: defaultFetch,
     });
   });
@@ -275,7 +275,7 @@ describe('instantiate client', () => {
     const client = new QanapiAPIV1({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -308,7 +308,7 @@ describe('instantiate client', () => {
     const client = new QanapiAPIV1({
       baseURL: 'http://localhost:5000/',
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: testFetch,
     });
 
@@ -321,7 +321,7 @@ describe('instantiate client', () => {
       const client = new QanapiAPIV1({
         baseURL: 'http://localhost:5000/custom/path/',
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -330,7 +330,7 @@ describe('instantiate client', () => {
       const client = new QanapiAPIV1({
         baseURL: 'http://localhost:5000/custom/path',
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -343,7 +343,7 @@ describe('instantiate client', () => {
       const client = new QanapiAPIV1({
         baseURL: 'https://example.com',
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.baseURL).toEqual('https://example.com');
     });
@@ -352,7 +352,7 @@ describe('instantiate client', () => {
       process.env['QANAPI_API_V1_BASE_URL'] = 'https://example.com/from_env';
       const client = new QanapiAPIV1({
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
@@ -361,18 +361,18 @@ describe('instantiate client', () => {
       process.env['QANAPI_API_V1_BASE_URL'] = ''; // empty
       const client = new QanapiAPIV1({
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
-      expect(client.baseURL).toEqual('https://My-Project-Domain');
+      expect(client.baseURL).toEqual('https://{project_domain}');
     });
 
     test('blank env variable', () => {
       process.env['QANAPI_API_V1_BASE_URL'] = '  '; // blank
       const client = new QanapiAPIV1({
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
-      expect(client.baseURL).toEqual('https://My-Project-Domain');
+      expect(client.baseURL).toEqual('https://{project_domain}');
     });
   });
 
@@ -380,14 +380,14 @@ describe('instantiate client', () => {
     const client = new QanapiAPIV1({
       maxRetries: 4,
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
     });
     expect(client.maxRetries).toEqual(4);
 
     // default
     const client2 = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
     });
     expect(client2.maxRetries).toEqual(2);
   });
@@ -398,7 +398,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         maxRetries: 3,
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
 
       const newClient = client.withOptions({
@@ -425,7 +425,7 @@ describe('instantiate client', () => {
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
 
       const newClient = client.withOptions({
@@ -444,7 +444,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         timeout: 1000,
         qanapiAuthorization: 'My Qanapi Authorization',
-        projectDomain: 'My-Project-Domain',
+        projectDomain: 'My Project Domain',
       });
 
       // Modify the client properties directly after creation
@@ -473,28 +473,30 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['QANAPI_API_V1_PROJECT_DOMAIN'] = 'My-Project-Domain';
-    const client = new QanapiAPIV1({ qanapiAuthorization: 'My Qanapi Authorization' });
+    process.env['QANAPI_API_V1_API_KEY'] = 'My Qanapi Authorization';
+    process.env['QANAPI_API_V1_PROJECT_DOMAIN'] = 'My Project Domain';
+    const client = new QanapiAPIV1();
     expect(client.qanapiAuthorization).toBe('My Qanapi Authorization');
-    expect(client.projectDomain).toBe('My-Project-Domain');
+    expect(client.projectDomain).toBe('My Project Domain');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
-    process.env['QANAPI_API_V1_PROJECT_DOMAIN'] = 'another My-Project-Domain';
+    process.env['QANAPI_API_V1_API_KEY'] = 'another My Qanapi Authorization';
+    process.env['QANAPI_API_V1_PROJECT_DOMAIN'] = 'another My Project Domain';
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
     });
     expect(client.qanapiAuthorization).toBe('My Qanapi Authorization');
-    expect(client.projectDomain).toBe('My-Project-Domain');
+    expect(client.projectDomain).toBe('My Project Domain');
   });
 });
 
 describe('request building', () => {
   const client = new QanapiAPIV1({
     qanapiAuthorization: 'My Qanapi Authorization',
-    projectDomain: 'My-Project-Domain',
+    projectDomain: 'My Project Domain',
   });
 
   describe('custom headers', () => {
@@ -516,7 +518,7 @@ describe('request building', () => {
 describe('default encoder', () => {
   const client = new QanapiAPIV1({
     qanapiAuthorization: 'My Qanapi Authorization',
-    projectDomain: 'My-Project-Domain',
+    projectDomain: 'My Project Domain',
   });
 
   class Serializable {
@@ -604,7 +606,7 @@ describe('retries', () => {
 
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       timeout: 10,
       fetch: testFetch,
     });
@@ -639,7 +641,7 @@ describe('retries', () => {
 
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -668,7 +670,7 @@ describe('retries', () => {
     };
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -702,7 +704,7 @@ describe('retries', () => {
     };
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: testFetch,
       maxRetries: 4,
       defaultHeaders: { 'X-Stainless-Retry-Count': null },
@@ -736,7 +738,7 @@ describe('retries', () => {
     };
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -771,7 +773,7 @@ describe('retries', () => {
 
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: testFetch,
     });
 
@@ -805,7 +807,7 @@ describe('retries', () => {
 
     const client = new QanapiAPIV1({
       qanapiAuthorization: 'My Qanapi Authorization',
-      projectDomain: 'My-Project-Domain',
+      projectDomain: 'My Project Domain',
       fetch: testFetch,
     });
 
