@@ -19,8 +19,6 @@ export class Proxy extends APIResource {
    *     title: 'bar',
    *     body: 'bar',
    *   },
-   *   'X-Qanapi-Authorization':
-   *     'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
    * });
    * ```
    */
@@ -31,7 +29,6 @@ export class Proxy extends APIResource {
   ): APIPromise<ProxyForwardResponse> {
     const {
       body,
-      'X-Qanapi-Authorization': xQanapiAuthorization,
       'X-Qanapi-Classification': xQanapiClassification,
       'X-Qanapi-Destination': xQanapiDestination,
       'X-Qanapi-Fields': xQanapiFields,
@@ -43,7 +40,6 @@ export class Proxy extends APIResource {
       ...options,
       headers: buildHeaders([
         {
-          'X-Qanapi-Authorization': xQanapiAuthorization,
           ...(xQanapiClassification != null ?
             { 'X-Qanapi-Classification': xQanapiClassification }
           : undefined),
@@ -69,11 +65,6 @@ export interface ProxyForwardParams {
    * listed in `X-Qanapi-Fields`.
    */
   body: Record<string, unknown>;
-
-  /**
-   * Header param: API key used to authenticate the request
-   */
-  'X-Qanapi-Authorization': string;
 
   /**
    * Header param: Optional classification label for auditing or filtering

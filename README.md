@@ -25,12 +25,13 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import QanapiAPIV1 from 'qanapi-api-v1';
 
-const client = new QanapiAPIV1();
+const client = new QanapiAPIV1({
+  projectDomain: process.env['QANAPI_API_V1_PROJECT_DOMAIN'], // This is the default and can be omitted
+});
 
 async function main() {
   const response = await client.proxy.forward('REPLACE_ME', {
     body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
-    'X-Qanapi-Authorization': 'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
   });
 }
 
@@ -45,12 +46,13 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import QanapiAPIV1 from 'qanapi-api-v1';
 
-const client = new QanapiAPIV1();
+const client = new QanapiAPIV1({
+  projectDomain: process.env['QANAPI_API_V1_PROJECT_DOMAIN'], // This is the default and can be omitted
+});
 
 async function main() {
   const params: QanapiAPIV1.ProxyForwardParams = {
     body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
-    'X-Qanapi-Authorization': 'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
   };
   const response: QanapiAPIV1.ProxyForwardResponse = await client.proxy.forward('REPLACE_ME', params);
 }
@@ -70,10 +72,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const response = await client.proxy
-    .forward('REPLACE_ME', {
-      body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
-      'X-Qanapi-Authorization': 'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    })
+    .forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } })
     .catch(async (err) => {
       if (err instanceof QanapiAPIV1.APIError) {
         console.log(err.status); // 400
@@ -117,7 +116,7 @@ const client = new QanapiAPIV1({
 });
 
 // Or, configure per-request:
-await client.proxy.forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' }, 'X-Qanapi-Authorization': 'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' }, {
+await client.proxy.forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } }, {
   maxRetries: 5,
 });
 ```
@@ -134,7 +133,7 @@ const client = new QanapiAPIV1({
 });
 
 // Override per-request:
-await client.proxy.forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' }, 'X-Qanapi-Authorization': 'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' }, {
+await client.proxy.forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } }, {
   timeout: 5 * 1000,
 });
 ```
@@ -158,19 +157,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new QanapiAPIV1();
 
 const response = await client.proxy
-  .forward('REPLACE_ME', {
-    body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
-    'X-Qanapi-Authorization': 'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  })
+  .forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.proxy
-  .forward('REPLACE_ME', {
-    body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
-    'X-Qanapi-Authorization': 'cd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  })
+  .forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response);
