@@ -36,8 +36,6 @@ export interface ClientOptions {
    */
   qanapiAuthorization?: string | undefined;
 
-  apiToken: string;
-
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
@@ -111,7 +109,6 @@ export interface ClientOptions {
 export class QanapiAPIV1 {
   projectDomain: string;
   qanapiAuthorization: string;
-  apiToken: string;
 
   baseURL: string;
   maxRetries: number;
@@ -130,7 +127,6 @@ export class QanapiAPIV1 {
    *
    * @param {string | undefined} [opts.projectDomain=process.env['QANAPI_API_V1_PROJECT_DOMAIN'] ?? undefined]
    * @param {string | undefined} [opts.qanapiAuthorization=process.env['QANAPI_API_V1_API_KEY'] ?? undefined]
-   * @param {string} opts.apiToken
    * @param {string} [opts.baseURL=process.env['QANAPI_API_V1_BASE_URL'] ?? https://{project_domain}] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -143,9 +139,8 @@ export class QanapiAPIV1 {
     baseURL = readEnv('QANAPI_API_V1_BASE_URL'),
     projectDomain = readEnv('QANAPI_API_V1_PROJECT_DOMAIN'),
     qanapiAuthorization = readEnv('QANAPI_API_V1_API_KEY'),
-    apiToken,
     ...opts
-  }: ClientOptions) {
+  }: ClientOptions = {}) {
     if (projectDomain === undefined) {
       throw new Errors.QanapiAPIV1Error(
         "The QANAPI_API_V1_PROJECT_DOMAIN environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an projectDomain option, like new QanapiAPIV1({ projectDomain: 'My Project Domain' }).",
@@ -156,16 +151,10 @@ export class QanapiAPIV1 {
         "The QANAPI_API_V1_API_KEY environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an qanapiAuthorization option, like new QanapiAPIV1({ qanapiAuthorization: 'My Qanapi Authorization' }).",
       );
     }
-    if (apiToken === undefined) {
-      throw new Errors.QanapiAPIV1Error(
-        "Missing required client option apiToken; you need to instantiate the QanapiAPIV1 client with an apiToken option, like new QanapiAPIV1({ apiToken: 'My API Token' }).",
-      );
-    }
 
     const options: ClientOptions = {
       projectDomain,
       qanapiAuthorization,
-      apiToken,
       ...opts,
       baseURL: baseURL || `https://{project_domain}`,
     };
@@ -189,7 +178,6 @@ export class QanapiAPIV1 {
 
     this.projectDomain = projectDomain;
     this.qanapiAuthorization = qanapiAuthorization;
-    this.apiToken = apiToken;
   }
 
   /**
@@ -206,7 +194,6 @@ export class QanapiAPIV1 {
       fetchOptions: this.fetchOptions,
       projectDomain: this.projectDomain,
       qanapiAuthorization: this.qanapiAuthorization,
-      apiToken: this.apiToken,
       ...options,
     });
   }
