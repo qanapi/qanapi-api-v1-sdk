@@ -143,7 +143,7 @@ export class QanapiAPIV1 {
   }: ClientOptions = {}) {
     if (projectDomain === undefined) {
       throw new Errors.QanapiAPIV1Error(
-        "The QANAPI_API_V1_PROJECT_DOMAIN environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an projectDomain option, like new QanapiAPIV1({ projectDomain: 'My Project Domain' }).",
+        "The QANAPI_API_V1_PROJECT_DOMAIN environment variable is missing or empty; either provide it, or instantiate the QanapiAPIV1 client with an projectDomain option, like new QanapiAPIV1({ projectDomain: 'My-Project-Domain' }).",
       );
     }
     if (qanapiAuthorization === undefined) {
@@ -156,7 +156,7 @@ export class QanapiAPIV1 {
       projectDomain,
       qanapiAuthorization,
       ...opts,
-      baseURL: baseURL || `https://{project_domain}`,
+      baseURL: baseURL || `https://${projectDomain}`,
     };
 
     this.baseURL = options.baseURL!;
