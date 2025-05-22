@@ -1,6 +1,6 @@
 {
   "name": "qanapi-api-v1-sdk",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "The official TypeScript library for the Qanapi API V1 API",
   "author": "Qanapi API V1 <>",
   "types": "dist/index.d.ts",
