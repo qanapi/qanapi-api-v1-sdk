@@ -12,7 +12,7 @@ export class Proxy extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.proxy.forward('api_token', {
+   * const response = await client.proxy.execute('api_token', {
    *   body: {
    *     userId: 1,
    *     id: 1,
@@ -23,11 +23,11 @@ export class Proxy extends APIResource {
    * });
    * ```
    */
-  forward(
+  execute(
     apiToken: string,
-    params: ProxyForwardParams,
+    params: ProxyExecuteParams,
     options?: RequestOptions,
-  ): APIPromise<ProxyForwardResponse> {
+  ): APIPromise<ProxyExecuteResponse> {
     const {
       body,
       'X-Qanapi-Classification': xQanapiClassification,
@@ -58,9 +58,9 @@ export class Proxy extends APIResource {
 /**
  * The encrypted or decrypted payload, or destination's response
  */
-export type ProxyForwardResponse = Record<string, unknown>;
+export type ProxyExecuteResponse = Record<string, unknown>;
 
-export interface ProxyForwardParams {
+export interface ProxyExecuteParams {
   /**
    * Body param: JSON payload to be encrypted or decrypted. Fields must match those
    * listed in `X-Qanapi-Fields`.
@@ -96,5 +96,5 @@ export interface ProxyForwardParams {
 }
 
 export declare namespace Proxy {
-  export { type ProxyForwardResponse as ProxyForwardResponse, type ProxyForwardParams as ProxyForwardParams };
+  export { type ProxyExecuteResponse as ProxyExecuteResponse, type ProxyExecuteParams as ProxyExecuteParams };
 }

@@ -3,15 +3,16 @@
 import QanapiAPIV1 from 'qanapi-api-v1-sdk';
 
 const client = new QanapiAPIV1({
-  qanapiAuthorization: 'My Qanapi Authorization',
   projectDomain: 'My Project Domain',
+  qanapiAuthorization: 'My Qanapi Authorization',
+  apiToken: 'My API Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource proxy', () => {
   // skipped: tests are disabled for the time being
-  test.skip('forward: only required params', async () => {
-    const responsePromise = client.proxy.forward('api_token', {
+  test.skip('execute: only required params', async () => {
+    const responsePromise = client.proxy.execute('api_token', {
       body: {
         userId: 1,
         id: 1,
@@ -29,8 +30,8 @@ describe('resource proxy', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('forward: required and optional params', async () => {
-    const response = await client.proxy.forward('api_token', {
+  test.skip('execute: required and optional params', async () => {
+    const response = await client.proxy.execute('api_token', {
       body: {
         userId: 1,
         id: 1,
