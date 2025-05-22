@@ -11,7 +11,12 @@ describe('resource proxy', () => {
   // skipped: tests are disabled for the time being
   test.skip('forward: only required params', async () => {
     const responsePromise = client.proxy.forward('api_token', {
-      body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
+      body: {
+        userId: 1,
+        id: 1,
+        title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+        body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,7 +30,12 @@ describe('resource proxy', () => {
   // skipped: tests are disabled for the time being
   test.skip('forward: required and optional params', async () => {
     const response = await client.proxy.forward('api_token', {
-      body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
+      body: {
+        userId: 1,
+        id: 1,
+        title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+        body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
+      },
       'X-Qanapi-Classification': 'cui',
       'X-Qanapi-Destination': 'https://webhook.site/06f5b1c6-cb79-48a7-b274-5a2d6f32463e',
       'X-Qanapi-Fields': 'title,body',

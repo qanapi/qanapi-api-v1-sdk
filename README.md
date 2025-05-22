@@ -29,7 +29,12 @@ const client = new QanapiAPIV1();
 
 async function main() {
   const response = await client.proxy.forward('REPLACE_ME', {
-    body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
+    body: {
+      userId: 1,
+      id: 1,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
+    },
   });
 }
 
@@ -48,7 +53,12 @@ const client = new QanapiAPIV1();
 
 async function main() {
   const params: QanapiAPIV1.ProxyForwardParams = {
-    body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' },
+    body: {
+      userId: 1,
+      id: 1,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
+    },
   };
   const response: QanapiAPIV1.ProxyForwardResponse = await client.proxy.forward('REPLACE_ME', params);
 }
@@ -68,7 +78,14 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const response = await client.proxy
-    .forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } })
+    .forward('REPLACE_ME', {
+      body: {
+        userId: 1,
+        id: 1,
+        title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+        body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
+      },
+    })
     .catch(async (err) => {
       if (err instanceof QanapiAPIV1.APIError) {
         console.log(err.status); // 400
@@ -113,7 +130,7 @@ const client = new QanapiAPIV1({
 });
 
 // Or, configure per-request:
-await client.proxy.forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } }, {
+await client.proxy.forward('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
   maxRetries: 5,
 });
 ```
@@ -131,7 +148,7 @@ const client = new QanapiAPIV1({
 });
 
 // Override per-request:
-await client.proxy.forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } }, {
+await client.proxy.forward('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
   timeout: 5 * 1000,
 });
 ```
@@ -155,13 +172,27 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new QanapiAPIV1();
 
 const response = await client.proxy
-  .forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } })
+  .forward('REPLACE_ME', {
+    body: {
+      userId: 1,
+      id: 1,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
+    },
+  })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.proxy
-  .forward('REPLACE_ME', { body: { userId: 'bar', id: 'bar', title: 'bar', body: 'bar' } })
+  .forward('REPLACE_ME', {
+    body: {
+      userId: 1,
+      id: 1,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
+    },
+  })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response);
