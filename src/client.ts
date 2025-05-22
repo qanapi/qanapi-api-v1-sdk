@@ -26,6 +26,8 @@ import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
+  qanapiAuthorization: string;
+
   /**
    * Defaults to process.env['QANAPI_API_V1_PROJECT_DOMAIN'].
    */
@@ -102,6 +104,7 @@ export interface ClientOptions {
  * API Client for interfacing with the Qanapi API V1 API.
  */
 export class QanapiAPIV1 {
+  qanapiAuthorization: string;
   projectDomain: string;
 
   baseURL: string;
@@ -119,6 +122,7 @@ export class QanapiAPIV1 {
   /**
    * API Client for interfacing with the Qanapi API V1 API.
    *
+   * @param {string} opts.qanapiAuthorization
    * @param {string | undefined} [opts.projectDomain=process.env['QANAPI_API_V1_PROJECT_DOMAIN'] ?? example.qanapi.com]
    * @param {string} [opts.baseURL=process.env['QANAPI_API_V1_BASE_URL'] ?? https://{project_domain}] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -130,10 +134,18 @@ export class QanapiAPIV1 {
    */
   constructor({
     baseURL = readEnv('QANAPI_API_V1_BASE_URL'),
+    qanapiAuthorization,
     projectDomain = readEnv('QANAPI_API_V1_PROJECT_DOMAIN') ?? 'example.qanapi.com',
     ...opts
-  }: ClientOptions = {}) {
+  }: ClientOptions) {
+    if (qanapiAuthorization === undefined) {
+      throw new Errors.QanapiAPIV1Error(
+        "Missing required client option qanapiAuthorization; you need to instantiate the QanapiAPIV1 client with an qanapiAuthorization option, like new QanapiAPIV1({ qanapiAuthorization: 'My Qanapi Authorization' }).",
+      );
+    }
+
     const options: ClientOptions = {
+      qanapiAuthorization,
       projectDomain,
       ...opts,
       baseURL: baseURL || `https://${projectDomain}`,
@@ -156,6 +168,7 @@ export class QanapiAPIV1 {
 
     this._options = options;
 
+    this.qanapiAuthorization = qanapiAuthorization;
     this.projectDomain = projectDomain;
   }
 
@@ -171,6 +184,7 @@ export class QanapiAPIV1 {
       logger: this.logger,
       logLevel: this.logLevel,
       fetchOptions: this.fetchOptions,
+      qanapiAuthorization: this.qanapiAuthorization,
       projectDomain: this.projectDomain,
       ...options,
     });
@@ -182,10 +196,6 @@ export class QanapiAPIV1 {
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
     return;
-  }
-
-  protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
-    return buildHeaders([{ 'X-Qanapi-Authorization': this.projectDomain }]);
   }
 
   /**
@@ -617,8 +627,8 @@ export class QanapiAPIV1 {
         'X-Stainless-Retry-Count': String(retryCount),
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
+        'X-Qanapi-Authorization': this.qanapiAuthorization,
       },
-      this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
