@@ -55,12 +55,12 @@ $ cd qanapi-api-v1-sdk
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link qanapi-api-v1
+$ yarn link qanapi-api-v1-sdk
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global qanapi-api-v1
+$ pnpm link -—global qanapi-api-v1-sdk
 ```
 
 ## Running tests

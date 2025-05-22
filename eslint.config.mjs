@@ -25,7 +25,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^qanapi-api-v1(/.*)?',
+              regex: '^qanapi-api-v1-sdk(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],
