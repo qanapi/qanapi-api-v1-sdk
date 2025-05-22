@@ -20,7 +20,7 @@ import { APIPromise } from './core/api-promise';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
-import { Proxy, ProxyExecuteParams, ProxyExecuteResponse } from './resources/proxy';
+import { Proxy, ProxyProcessParams, ProxyProcessResponse } from './resources/proxy';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
@@ -716,7 +716,7 @@ export declare namespace QanapiAPIV1 {
 
   export {
     Proxy as Proxy,
-    type ProxyExecuteResponse as ProxyExecuteResponse,
-    type ProxyExecuteParams as ProxyExecuteParams,
+    type ProxyProcessResponse as ProxyProcessResponse,
+    type ProxyProcessParams as ProxyProcessParams,
   };
 }

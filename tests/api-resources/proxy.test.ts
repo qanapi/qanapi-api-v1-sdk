@@ -10,8 +10,8 @@ const client = new QanapiAPIV1({
 
 describe('resource proxy', () => {
   // skipped: tests are disabled for the time being
-  test.skip('execute: only required params', async () => {
-    const responsePromise = client.proxy.execute('api_token', {
+  test.skip('process: only required params', async () => {
+    const responsePromise = client.proxy.process('api_token', {
       body: {
         userId: 1,
         id: 1,
@@ -29,8 +29,8 @@ describe('resource proxy', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('execute: required and optional params', async () => {
-    const response = await client.proxy.execute('api_token', {
+  test.skip('process: required and optional params', async () => {
+    const response = await client.proxy.process('api_token', {
       body: {
         userId: 1,
         id: 1,

@@ -2,8 +2,8 @@
 
 Types:
 
-- <code><a href="./src/resources/proxy.ts">ProxyExecuteResponse</a></code>
+- <code><a href="./src/resources/proxy.ts">ProxyProcessResponse</a></code>
 
 Methods:
 
-- <code title="post /proxy/{api_token}">client.proxy.<a href="./src/resources/proxy.ts">execute</a>(apiToken, { ...params }) -> ProxyExecuteResponse</code>
+- <code title="post /proxy/{api_token}">client.proxy.<a href="./src/resources/proxy.ts">process</a>(apiToken, { ...params }) -> ProxyProcessResponse</code>
