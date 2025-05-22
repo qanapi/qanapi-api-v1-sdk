@@ -18,3 +18,4 @@ jobs:
         run: |
           bash ./bin/check-release-environment
         env:
+          NPM_TOKEN: ${{ secrets.QANAPI_API_V1_NPM_TOKEN || secrets.NPM_TOKEN }}
