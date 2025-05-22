@@ -24,11 +24,12 @@ import QanapiAPIV1 from 'qanapi-api-v1-sdk';
 
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
+  apiToken: 'My API Token',
   qanapiAuthorization: process.env['QANAPI_API_V1_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const response = await client.proxy.forward('REPLACE_ME', {
+  const response = await client.proxy.execute('REPLACE_ME', {
     body: {
       userId: 1,
       id: 1,
@@ -51,11 +52,12 @@ import QanapiAPIV1 from 'qanapi-api-v1-sdk';
 
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
+  apiToken: 'My API Token',
   qanapiAuthorization: process.env['QANAPI_API_V1_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const params: QanapiAPIV1.ProxyForwardParams = {
+  const params: QanapiAPIV1.ProxyExecuteParams = {
     body: {
       userId: 1,
       id: 1,
@@ -63,7 +65,7 @@ async function main() {
       body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et',
     },
   };
-  const response: QanapiAPIV1.ProxyForwardResponse = await client.proxy.forward('REPLACE_ME', params);
+  const response: QanapiAPIV1.ProxyExecuteResponse = await client.proxy.execute('REPLACE_ME', params);
 }
 
 main();
@@ -81,7 +83,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const response = await client.proxy
-    .forward('REPLACE_ME', {
+    .execute('REPLACE_ME', {
       body: {
         userId: 1,
         id: 1,
@@ -129,11 +131,12 @@ You can use the `maxRetries` option to configure or disable this:
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
+  apiToken: 'My API Token',
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await client.proxy.forward('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
+await client.proxy.execute('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
   maxRetries: 5,
 });
 ```
@@ -147,11 +150,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 // Configure the default for all requests:
 const client = new QanapiAPIV1({
   projectDomain: 'My Project Domain',
+  apiToken: 'My API Token',
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await client.proxy.forward('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
+await client.proxy.execute('REPLACE_ME', { body: { userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit nsuscipit recusandae consequuntur expedita et' } }, {
   timeout: 5 * 1000,
 });
 ```
@@ -175,7 +179,7 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new QanapiAPIV1();
 
 const response = await client.proxy
-  .forward('REPLACE_ME', {
+  .execute('REPLACE_ME', {
     body: {
       userId: 1,
       id: 1,
@@ -188,7 +192,7 @@ console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.proxy
-  .forward('REPLACE_ME', {
+  .execute('REPLACE_ME', {
     body: {
       userId: 1,
       id: 1,
